@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'react-bootstrap'
+import { Table, Button } from 'react-bootstrap'
 
 class Alunos extends React.Component {
     constructor(props) {
@@ -10,12 +10,25 @@ class Alunos extends React.Component {
         }
     }
 
-    componentDidMount() {
+    buscarAluno = () => {
         fetch('http://localhost:3000/alunos')
-        .then(res => res.json())
-        .then(data => {
-            this.setState({ alunos: data })
-        })
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ alunos: data })
+            })
+    }
+
+    deletarAluno = (id) => {
+        fetch('http://localhost:3000/alunos/' + id, { method: 'DELETE' })
+            .then(res => {
+                if (res.ok) {
+                    this.buscarAluno()
+                }
+            })
+    }
+
+    componentDidMount() {
+        this.buscarAluno()
     }
 
     render() {
@@ -30,13 +43,14 @@ class Alunos extends React.Component {
                 </thead>
                 <tbody>
                     {
-                    this.state.alunos.map((aluno) => 
-                        <tr>
-                            <td>{aluno.nome}</td>
-                            <td>{aluno.email}</td>
-                            <td>Atualizar Excluir</td>
-                        </tr>
-                    )}
+                        this.state.alunos.map((aluno) =>
+                            <tr>
+                                <td>{aluno.nome}</td>
+                                <td>{aluno.email}</td>
+                                <td>Atualizar <Button variant="danger" onClick={() => this.deletarAluno(aluno.id)}>Excluir</Button></td>
+                            </tr>
+                        )
+                    }
                 </tbody>
             </Table>
         )
