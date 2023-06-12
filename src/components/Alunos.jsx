@@ -6,12 +6,16 @@ class Alunos extends React.Component {
         super(props)
 
         this.state = {
-            alunos: [
-                { 'id': 1, 'nome': 'Miguel Duarte', 'email': 'miguel@teste.com' },
-                { 'id': 2, 'nome': 'Matheus Duarte', 'email': 'matheus@teste.com'},
-                { 'id': 3, 'nome': 'Browser Junior', 'email': 'browserjr@teste.com'}
-            ]
+            alunos: []
         }
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:3000/alunos')
+        .then(res => res.json())
+        .then(data => {
+            this.setState({ alunos: data })
+        })
     }
 
     render() {
