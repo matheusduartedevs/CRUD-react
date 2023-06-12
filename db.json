@@ -4,6 +4,21 @@
       "id": 1,
       "nome": "Matheus Duarte",
       "email": "matheus@teste.com"
+    },
+    {
+      "id": 2,
+      "nome": "Miguel Duarte",
+      "email": "miguel@teste.com"
+    },
+    {
+      "nome": "Jorge Jr",
+      "email": "jorge@teste.com",
+      "id": 3
+    },
+    {
+      "nome": "Bowser Fury",
+      "email": "bowserfury@gmail.com",
+      "id": 4
     }
   ]
 }
