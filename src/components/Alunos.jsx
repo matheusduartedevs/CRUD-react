@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Button, Form } from 'react-bootstrap'
+import { Table, Button, Form, Modal } from 'react-bootstrap'
 
 class Alunos extends React.Component {
     constructor(props) {
@@ -9,7 +9,8 @@ class Alunos extends React.Component {
             id: 0,
             nome: '',
             email: '',
-            alunos: []
+            alunos: [],
+            modalAberto: false
         }
     }
 
@@ -30,6 +31,7 @@ class Alunos extends React.Component {
                     nome: aluno.nome,
                     email: aluno.email
                 })
+                this.abrirModal()
             })
     }
 
@@ -128,7 +130,7 @@ class Alunos extends React.Component {
                 nome: this.state.nome,
                 email: this.state.email
             }
-    
+
             this.cadastrarAluno(aluno)
         } else {
             const aluno = {
@@ -136,9 +138,10 @@ class Alunos extends React.Component {
                 nome: this.state.nome,
                 email: this.state.email
             }
-    
+
             this.atualizarAluno(aluno)
         }
+        this.fecharModal()
     }
 
     reset = () => {
@@ -149,36 +152,65 @@ class Alunos extends React.Component {
                 email: ''
             }
         )
+        this.abrirModal()
+    }
+
+    fecharModal = () => {
+        this.setState(
+            {
+                modalAberto: false
+            }
+        )
+    }
+
+    abrirModal = () => {
+        this.setState(
+            {
+                modalAberto: true
+            }
+        )
     }
 
     render() {
         return (
             <div>
-                <Form>
-                    <Form.Group className="mb-3">
-                        <Form.Label>ID</Form.Label>
-                        <Form.Control type="text" value={this.state.id} readOnly={true} />
-                    </Form.Group>
+                <Modal show={this.state.modalAberto} onHide={this.fecharModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>DADOS DO ALUNO</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group className="mb-3">
+                                <Form.Label>ID</Form.Label>
+                                <Form.Control type="text" value={this.state.id} readOnly={true} />
+                            </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Nome</Form.Label>
-                        <Form.Control type="text" placeholder="Digite o nome do aluno" value={this.state.nome} onChange={this.atualizaNome} />
-                    </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Nome</Form.Label>
+                                <Form.Control type="text" placeholder="Digite o nome do aluno" value={this.state.nome} onChange={this.atualizaNome} />
+                            </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Digite o e-mail do aluno" value={this.state.email} onChange={this.atualizaEmail} />
-                        <Form.Text className="text-muted">
-                            Utilize o e-mail institucional.
-                        </Form.Text>
-                    </Form.Group>
-                    <Button variant="primary" onClick={this.submit} >
-                        Salvar
-                    </Button>
-                    <Button variant="warning" onClick={this.reset} >
-                        Novo
-                    </Button>
-                </Form>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" placeholder="Digite o e-mail do aluno" value={this.state.email} onChange={this.atualizaEmail} />
+                                <Form.Text className="text-muted">
+                                    Utilize o e-mail institucional.
+                                </Form.Text>
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.fecharModal}>
+                            Fechar
+                        </Button>
+                        <Button variant="primary" onClick={this.submit} >
+                            Salvar
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                <Button variant="warning" onClick={this.reset} >
+                    Novo
+                </Button>
 
                 {this.renderTabela()}
             </div>

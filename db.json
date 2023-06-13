@@ -1,24 +1,19 @@
 {
   "alunos": [
     {
-      "id": 1,
-      "nome": "foi caralho",
-      "email": "testeAAAAAAAAAAA@gmail.com"
+      "nome": "Matheus Duarte",
+      "email": "matheus@email.com",
+      "id": 1
     },
     {
-      "nome": "HAHAHAHAHA",
-      "email": "estoyloco@teste.com",
+      "nome": "Miguel Crispim",
+      "email": "miguel@email.com",
       "id": 2
     },
     {
       "id": 3,
-      "nome": "Matheus Duarte II",
-      "email": "matheus@gmail.com"
-    },
-    {
-      "nome": "Miguel Duarte",
-      "email": "miguel@gmail.com",
-      "id": 4
+      "nome": "Pedro",
+      "email": "pedro@email.com"
     }
   ]
 }
